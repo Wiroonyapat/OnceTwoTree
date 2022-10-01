@@ -33,7 +33,7 @@ namespace OnceTwoTree
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _player_Tex = new MyTextureInGame(Content, "player2", Color.White, Vector2.Zero, Vector2.One, 0);
+            _player_Tex = new MyTextureInGame(Content, "player2", Color.Wheat, Vector2.Zero, Vector2.One, 0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -52,7 +52,7 @@ namespace OnceTwoTree
 
             _spriteBatch.Begin();
 
-            _player_Tex.Draw_FullMe(_spriteBatch, _player_Pos, 0);
+            _player_Tex.Draw_Me(_spriteBatch, _player_Pos, 100);
 
             _spriteBatch.End();
 
