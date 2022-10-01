@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using myTextureInGame;
+using OnceTwoTree.HelperClass_ott;
 
 namespace OnceTwoTree
 {
@@ -12,6 +12,7 @@ namespace OnceTwoTree
 
         private MyTextureInGame _player_Tex;
         private Vector2 _player_Pos = new Vector2(200,200);
+        private My_Position_Calculator _player_posss;
 
         public Game1()
         {
@@ -33,13 +34,17 @@ namespace OnceTwoTree
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _player_Tex = new MyTextureInGame(Content, "player2", Color.Wheat, Vector2.Zero, Vector2.One, 0);
+            _player_Tex = new MyTextureInGame(Content, "player2", Color.Wheat, MyTextureInGame.Origin.Left, MyTextureInGame.Origin.Right, Vector2.One, 0);
+            _player_posss = new My_Position_Calculator(_player_Tex, _player_Pos);
+            
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            _player_Tex.Update_Me(gameTime);
 
             // TODO: Add your update logic here
 
@@ -52,7 +57,8 @@ namespace OnceTwoTree
 
             _spriteBatch.Begin();
 
-            _player_Tex.Draw_Me(_spriteBatch, _player_Pos, 100);
+            _player_Tex.Draw_FullAnimateMe(_spriteBatch, _player_Pos, 100, false);
+            _player_Tex.Draw_AnimateMe(_spriteBatch, new Vector2(500,400),1, 50, false);
 
             _spriteBatch.End();
 
