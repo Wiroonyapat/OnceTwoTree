@@ -305,8 +305,8 @@ namespace myTextureInGame
             float opa = 100;
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
 
-            if (this.flip) batch.Draw(my_Texture, position, null, new Color(my_colour, opa*0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, null, new Color(my_colour, opa*0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if (this.flip) batch.Draw(my_Texture, position, null, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, null, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
         }
         
         public void Draw_Me(SpriteBatch batch, Vector2 position, float? Opacity_Percent) // ใช้วาดตัวTextureออกมา (เหมือนอันบนแหละ)
@@ -314,8 +314,8 @@ namespace myTextureInGame
             float opa = 100;
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
 
-            if(this.flip) batch.Draw(my_Texture, position, null, new Color(my_colour, opa*0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, null, new Color(my_colour, opa*0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, null, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, null, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
         }
         
         public void Draw_PartMe(SpriteBatch batch, Vector2 position, Rectangle part, float? Opacity_Percent) // ใช้วาดแค่ส่วนๆหนึ่งของ Texture
@@ -323,8 +323,8 @@ namespace myTextureInGame
             float opa = 100;
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
 
-            if(this.flip) batch.Draw(my_Texture, position, part, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, part, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, part, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, part, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
         }
         #endregion
 
@@ -337,8 +337,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, 2, null, null, null, null, null, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         } 
@@ -349,8 +349,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, frameRate, null, null, null, null, null, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         } 
@@ -361,8 +361,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, null, intervalPerFrame, null, null, null, null, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         } 
@@ -373,8 +373,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, null, null, frame, row, frame, row, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
@@ -385,8 +385,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, null, null, (int)Frame_n_Row.X, (int)Frame_n_Row.Y, (int)Frame_n_Row.X, (int)Frame_n_Row.Y, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }  
@@ -397,8 +397,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, null, null, null, row, null, row, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
@@ -409,8 +409,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, framerate, null, null, row, null, row, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
@@ -421,8 +421,8 @@ namespace myTextureInGame
             if (Opacity_Percent.HasValue) opa = Opacity_Percent.Value;
             Update_My_Animate(null, null, null, intervalPerFrame, null, row, null, row, IsLoop);
 
-            if(this.flip)batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip)batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
@@ -459,8 +459,8 @@ namespace myTextureInGame
 
             Update_My_Animate(amoframe, amorow, null, inter, strframe, strrow, endframe, endrow, IsLoop);
 
-            if(this.flip) batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip) batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
@@ -496,8 +496,8 @@ namespace myTextureInGame
 
             Update_My_Animate(amoframe, amorow, fps, null, strframe, strrow, endframe, endrow, IsLoop);
 
-            if(this.flip)batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
-            else batch.Draw(my_Texture, position, my_Frame, new Color(my_colour, opa * 0.01f), 0, my_origin, my_scale, 0, my_depth);
+            if(this.flip)batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, SpriteEffects.FlipHorizontally, my_depth);
+            else batch.Draw(my_Texture, position, my_Frame, my_colour * 0.01f * opa, 0, my_origin, my_scale, 0, my_depth);
 
             Update_My_Time(Elapse_Game_Time);
         }
