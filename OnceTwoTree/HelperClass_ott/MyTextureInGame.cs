@@ -9,7 +9,7 @@ using OnceTwoTree;
 
 namespace myTextureInGame
 {
-    public class MyTextureInGame : Game1
+    public class MyTextureInGame
     {
         private Texture2D my_Texture;
 
