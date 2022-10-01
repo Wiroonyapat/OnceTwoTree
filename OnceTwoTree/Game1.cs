@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using myTextureInGame;
 
 namespace OnceTwoTree
 {
@@ -9,11 +10,16 @@ namespace OnceTwoTree
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private MyTextureInGame _player_Tex;
+        private Vector2 _player_Pos = new Vector2(200,200);
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 900;
         }
 
         protected override void Initialize()
@@ -27,7 +33,7 @@ namespace OnceTwoTree
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            _player_Tex = new MyTextureInGame(Content, "player2", Color.White, Vector2.Zero, Vector2.One, 0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,7 +50,11 @@ namespace OnceTwoTree
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            _player_Tex.Draw_FullMe(_spriteBatch, _player_Pos, 0);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
