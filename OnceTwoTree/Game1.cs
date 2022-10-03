@@ -9,10 +9,11 @@ namespace OnceTwoTree
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
-        public WalkScene mWalkScreen;
+        public ClimbScene mClimbScene;
         public TitleScreen mTitleScreen;
         public Scene mCurrentScreen;
+
+        public WalkScene mWalkScreen;
 
         Texture2D BG;
 
@@ -28,8 +29,6 @@ namespace OnceTwoTree
 
         protected override void Initialize()
         {
-
-            
             base.Initialize();
         }
 
@@ -39,8 +38,8 @@ namespace OnceTwoTree
             mWalkScreen = new WalkScene(this, new EventHandler(GameplayScreenEvent));
             mTitleScreen = new TitleScreen(this, new EventHandler(GameplayScreenEvent));
             BG = Content.Load<Texture2D>("UI\\background_01");
+            mClimbScene = new ClimbScene(this, new EventHandler(GameplayScreenEvent));
             mCurrentScreen = mTitleScreen;
-            
         }
 
         protected override void Update(GameTime gameTime)

@@ -21,6 +21,11 @@ namespace OnceTwoTree
             if(Keyboard.GetState().IsKeyDown(Keys.NumPad2) == true)
             {
                 ScreenEvent.Invoke(game.mWalkScreen, new EventArgs());
+                game.mClimbScene.GameConfig();
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.X) == true)
+            {
+                ScreenEvent.Invoke(game.mClimbScene, new EventArgs());
                 return;
             }
 
