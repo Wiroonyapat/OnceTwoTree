@@ -9,8 +9,11 @@ namespace OnceTwoTree
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        public ClimbScene mClimbScene;
+        public TitleScreen mTitleScreen;
+        public Scene mCurrentScreen;
 
-        Texture2D BG;
+        
 
         
         public Game1()
@@ -24,33 +27,31 @@ namespace OnceTwoTree
 
         protected override void Initialize()
         {
-
-            
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            BG = Content.Load<Texture2D>("UI\\background_01");
-            
+            mClimbScene = new ClimbScene(this, new EventHandler(GameplayScreenEvent));
+            mTitleScreen = new TitleScreen(this, new EventHandler(GameplayScreenEvent));
+            mCurrentScreen = mTitleScreen;
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            
-
+            mCurrentScreen.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-
+            spriteBatch.Begin();
+            mCurrentScreen.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
