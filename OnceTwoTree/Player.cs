@@ -52,6 +52,8 @@ namespace OnceTwoTree
                 this.Position.X += speed;
                 oldKS = ks;
             }
+
+            
         }
 
         public int Counting(float el)

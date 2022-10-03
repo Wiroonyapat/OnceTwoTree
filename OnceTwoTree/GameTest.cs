@@ -64,7 +64,7 @@ namespace OnceTwoTree
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //Controler
-            p1.InputControl(Keys.W, Keys.S, Keys.A, Keys.D);
+            p1.InputControl(Keys.Space, Keys.S, Keys.A, Keys.D);
             p2.InputControl(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
@@ -78,7 +78,7 @@ namespace OnceTwoTree
 
             //Collide
             Collision(playerRec);
-
+            
 
             if (!p1.onGround)
             {
@@ -134,7 +134,7 @@ namespace OnceTwoTree
             spriteBatch.Draw(p2Texture, p2.Position, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
             for (int i = 0; i < tilePos.Count; i++)
             {
-                spriteBatch.Draw(tileTexture, tilePos[i], new Rectangle(24, 0, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                spriteBatch.Draw(tileTexture, tilePos[i], new Rectangle(25, 0, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
             }
             for (int i = 0; i < wallPos.Count; i++)
             {
@@ -185,7 +185,7 @@ namespace OnceTwoTree
             for (int wallC = 0; wallC < wallPos.Count; wallC++)
             {
                 Rectangle wallRec = new Rectangle((int)wallPos[wallC].X, (int)wallPos[wallC].Y, 48, 48);
-                //wallRec = new Rectangle(144, Window.ClientBounds.Height - 48, 24 * 2, 24 * 2);
+                
 
                 if (player.Intersects(wallRec))
                 {
@@ -193,7 +193,7 @@ namespace OnceTwoTree
                     //On Right >>>
                     if (player.Right > wallRec.Left && player.Left < wallRec.Left
                         && player.Top <= wallRec.Bottom && player.Bottom > wallRec.Top &&
-                        player.Top >= wallRec.Top)
+                        player.Top >= wallRec.Top&& !p1.onClimb)
                     {
                         /*Console.WriteLine("WallR pos " + wallRec.Top);
                         p1.onWall = true;*/
@@ -202,7 +202,7 @@ namespace OnceTwoTree
                     //On Left <<<<
                     if (player.Left < wallRec.Right && player.Right > wallRec.Right
                         && player.Top <= wallRec.Bottom && player.Bottom > wallRec.Top
-                        && player.Top >= wallRec.Top)
+                        && player.Top >= wallRec.Top && !p1.onClimb)
                     {
                         /*Console.WriteLine("WallL pos " + wallRec.Top);
                         p1.onWall = true;*/
@@ -215,9 +215,28 @@ namespace OnceTwoTree
                         break;
                     }
 
+                   
                 }
                 else { p1.onWall = false; }
 
+                if (player.Intersects(wallRec))
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.W) && p1.onWall)
+                    {
+                        p1.onClimb = true;
+                        if (player.Left < wallRec.Left && player.Right + wallPredic > wallRec.Left)
+                        {
+                            Console.WriteLine("On left ");
+                            p1.Position.X = wallRec.Left;
+
+                        }
+                        if (player.Right > wallRec.Right && player.Left - wallPredic < wallRec.Right)
+                        {
+                            p1.Position.X = wallRec.Right;
+
+                        }
+                    }
+                }
 
 
             }
