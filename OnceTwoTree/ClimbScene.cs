@@ -49,9 +49,15 @@ namespace OnceTwoTree
         public override void Update(GameTime theTime)
         {
             
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad1) == true)
             {
                 ScreenEvent.Invoke(game.mTitleScreen, new EventArgs());
+                return;
+            }
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2) == true)
+            {
+                ScreenEvent.Invoke(game.mWalkScreen, new EventArgs());
                 return;
             }
             
@@ -71,7 +77,7 @@ namespace OnceTwoTree
 
         public override void Draw(SpriteBatch theBatch)
         {
-            
+            theBatch.Begin();
             theBatch.Draw(bg, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);base.Draw(theBatch);
             //Tower
             for(int i = 0;i*96 < game.Window.ClientBounds.Height; i++)
@@ -101,6 +107,8 @@ namespace OnceTwoTree
                 theBatch.DrawString(font, "Stamina = " + energy, new Vector2(5, 39), Color.White);
 
             }
+
+            theBatch.End();
 
         }
 

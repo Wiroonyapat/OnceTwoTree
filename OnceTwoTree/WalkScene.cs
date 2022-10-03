@@ -64,6 +64,12 @@ namespace OnceTwoTree
                 ScreenEvent.Invoke(game.mTitleScreen, new EventArgs());
                 return;
             }
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad3) == true)
+            {
+                ScreenEvent.Invoke(game.mClimbScene, new EventArgs());
+                return;
+            }
 
             //Controler
             p1.InputControl(Keys.Space, Keys.S, Keys.A, Keys.D);

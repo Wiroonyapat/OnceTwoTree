@@ -23,7 +23,7 @@ namespace OnceTwoTree
                 ScreenEvent.Invoke(game.mWalkScreen, new EventArgs());
                 game.mClimbScene.GameConfig();
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.X) == true)
+            if(Keyboard.GetState().IsKeyDown(Keys.NumPad3) == true)
             {
                 ScreenEvent.Invoke(game.mClimbScene, new EventArgs());
                 return;
