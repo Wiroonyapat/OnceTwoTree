@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OnceTwoTree
 {
-    public class WalkScene : Game
+    public class WalkScene : Scene
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -20,49 +20,51 @@ namespace OnceTwoTree
         int gravity = 10;
         int wallPredic = 5;
 
-        public WalkScene()
+        Game1 game;
+
+        public WalkScene(Game1 game ,EventHandler theScreenEvent) : base(theScreenEvent)
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            graphics.PreferredBackBufferWidth = 384 * 2;
-            graphics.PreferredBackBufferHeight = 216 * 2;
+            
+
+            this.game = game;
+
+            LoadContent();
+
         }
 
-        protected override void Initialize()
+        protected void LoadContent()
         {
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1Texture = Content.Load<Texture2D>("Character\\player4");
-            p2Texture = Content.Load<Texture2D>("Character\\player2");
-            tileTexture = Content.Load<Texture2D>("MapTile\\Ground");
+            this.spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            p1Texture = game.Content.Load<Texture2D>("Character\\player4");
+            p2Texture = game.Content.Load<Texture2D>("Character\\player2");
+            tileTexture = game.Content.Load<Texture2D>("MapTile\\Ground");
             p1 = new Player("Player1", 5);
             p2 = new Player("P2", 1);
 
             //Spawn point
             p1.Position.X = 48;
-            p2.Position.X = Window.ClientBounds.Width - 96;
+            p2.Position.X = game.Window.ClientBounds.Width - 96;
             //Ground
-            for (int i = 0; i * 24 * 2 < Window.ClientBounds.Width; i++)
+            for (int i = 0; i * 24 * 2 < game.Window.ClientBounds.Width; i++)
             {
-                tilePos.Add(new Vector2(24 * 2 * i, Window.ClientBounds.Height - 24 * 2));
+                tilePos.Add(new Vector2(24 * 2 * i, game.Window.ClientBounds.Height - 24 * 2));
             }
             //Wall
-            for (int j = 3; j * 48 < Window.ClientBounds.Height - 48; j++)
+            for (int j = 3; j * 48 < game.Window.ClientBounds.Height - 48; j++)
             {
-                wallPos.Add(new Vector2((Window.ClientBounds.Width / 2) - 48, 48 * j));
-                wallPos.Add(new Vector2((Window.ClientBounds.Width / 2), 48 * j));
+                wallPos.Add(new Vector2((game.Window.ClientBounds.Width / 2) - 48, 48 * j));
+                wallPos.Add(new Vector2((game.Window.ClientBounds.Width / 2), 48 * j));
             }
         }
 
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime theTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad1) == true)
+            {
+                ScreenEvent.Invoke(game.mTitleScreen, new EventArgs());
+                return;
+            }
+
             //Controler
             p1.InputControl(Keys.Space, Keys.S, Keys.A, Keys.D);
             p2.InputControl(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
@@ -116,46 +118,41 @@ namespace OnceTwoTree
             }
 
 
-            if (p1.Position.X + 48 > Window.ClientBounds.Width) p1.Position.X = 0;
-            if (p1.Position.X + 48 < 0) p1.Position.X = Window.ClientBounds.Width - 48;
-            if (p2.Position.X + 48 > Window.ClientBounds.Width) p2.Position.X = 0;
-            if (p2.Position.X + 48 < 0) p2.Position.X = Window.ClientBounds.Width - 48;
+            if (p1.Position.X + 48 > game.Window.ClientBounds.Width) p1.Position.X = 0;
+            if (p1.Position.X + 48 < 0) p1.Position.X = game.Window.ClientBounds.Width - 48;
+            if (p2.Position.X + 48 > game.Window.ClientBounds.Width) p2.Position.X = 0;
+            if (p2.Position.X + 48 < 0) p2.Position.X = game.Window.ClientBounds.Width - 48;
 
 
 
-            base.Update(gameTime);
+            base.Update(theTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(SpriteBatch theBatch)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            spriteBatch.Draw(p1Texture, p1.Position, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
-            spriteBatch.Draw(p2Texture, p2.Position, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+            game.GraphicsDevice.Clear(Color.CornflowerBlue);
+            theBatch.Begin();
+            theBatch.Draw(p1Texture, p1.Position, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+            theBatch.Draw(p2Texture, p2.Position, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
             for (int i = 0; i < tilePos.Count; i++)
             {
-                spriteBatch.Draw(tileTexture, tilePos[i], new Rectangle(25, 0, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                theBatch.Draw(tileTexture, tilePos[i], new Rectangle(25, 0, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
             }
             for (int i = 0; i < wallPos.Count; i++)
             {
-                if (wallPos[i].X < Window.ClientBounds.Width / 2)
+                if (wallPos[i].X < game.Window.ClientBounds.Width / 2)
                 {
-                    spriteBatch.Draw(tileTexture, wallPos[i], new Rectangle(24 * 0, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                    theBatch.Draw(tileTexture, wallPos[i], new Rectangle(24 * 0, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
-                if (wallPos[i].X > Window.ClientBounds.Width / 2 - 1)
+                if (wallPos[i].X > game.Window.ClientBounds.Width / 2 - 1)
                 {
-                    spriteBatch.Draw(tileTexture, wallPos[i], new Rectangle(24 * 2, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                    theBatch.Draw(tileTexture, wallPos[i], new Rectangle(24 * 2, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
             }
-            spriteBatch.Draw(tileTexture, new Vector2(144, Window.ClientBounds.Height - 48), new Rectangle(24 * 0, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+            theBatch.Draw(tileTexture, new Vector2(144, game.Window.ClientBounds.Height - 48), new Rectangle(24 * 0, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
 
-            spriteBatch.End();
+            theBatch.End();
 
-
-
-
-
-            base.Draw(gameTime);
         }
 
         public void Collision(Rectangle player)

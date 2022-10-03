@@ -10,6 +10,10 @@ namespace OnceTwoTree
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        public WalkScene mWalkScreen;
+        public TitleScreen mTitleScreen;
+        public Scene mCurrentScreen;
+
         Texture2D BG;
 
         
@@ -32,7 +36,10 @@ namespace OnceTwoTree
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            mWalkScreen = new WalkScene(this, new EventHandler(GameplayScreenEvent));
+            mTitleScreen = new TitleScreen(this, new EventHandler(GameplayScreenEvent));
             BG = Content.Load<Texture2D>("UI\\background_01");
+            mCurrentScreen = mTitleScreen;
             
         }
 
@@ -41,7 +48,7 @@ namespace OnceTwoTree
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+            mCurrentScreen.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -50,13 +57,16 @@ namespace OnceTwoTree
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            mCurrentScreen.Draw(spriteBatch);
+
 
             base.Draw(gameTime);
         }
 
-        public void GameplayScreenEvent(object obj, EventArgs e) 
-        { 
-            mCurrentScreen = (Scene)obj; 
+        public void GameplayScreenEvent(object obj, EventArgs e)
+        {
+            mCurrentScreen = (Scene)obj;
         }
+
     }
 }
