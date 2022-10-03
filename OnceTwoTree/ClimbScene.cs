@@ -9,7 +9,7 @@ namespace OnceTwoTree
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        
+        private SpriteFont font;
         Texture2D character,bg,block,towerTexture;
         Game1 game;
 
@@ -32,7 +32,7 @@ namespace OnceTwoTree
             bg = game.Content.Load<Texture2D>("UI\\background_01");
             block = game.Content.Load<Texture2D>("Character\\block");
             towerTexture = game.Content.Load<Texture2D>("Maptile\\Normal-wall-1");
-
+            font = game.Content.Load<SpriteFont>("Font");
             GameConfig();
         }
 
@@ -140,24 +140,32 @@ namespace OnceTwoTree
         public override void Draw(SpriteBatch theBatch)
         {
             
-            theBatch.Draw(bg, Vector2.Zero, null, Color.White, 0, Vector2.Zero, playerScale, SpriteEffects.None, 0);base.Draw(theBatch);
+            theBatch.Draw(bg, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);base.Draw(theBatch);
             //Tower
             for(int i = 0;i*96 < game.Window.ClientBounds.Height; i++)
             {
                 theBatch.Draw(towerTexture, new Vector2(game.Window.ClientBounds.Width - 140, 96 * i), null, Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0); base.Draw(theBatch);
             }
             
-            theBatch.Draw(character, playerPos, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0); base.Draw(theBatch);
+            theBatch.Draw(character, playerPos, new Rectangle(0, 0, 24, 48), Color.White, 0, Vector2.Zero, playerScale, SpriteEffects.None, 0); base.Draw(theBatch);
             //Whitebar
             theBatch.Draw(block, barPos, null, Color.White, 0, Vector2.Zero,barScale, SpriteEffects.None, 0); base.Draw(theBatch);
             //Drop Check
             theBatch.Draw(block, dropPos, null, Color.Yellow, 0, Vector2.Zero, dropScale, SpriteEffects.None, 0); base.Draw(theBatch);
             //Skillcheck
-            theBatch.Draw(block, skillCheckPosL, null, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0); base.Draw(theBatch);
-            theBatch.Draw(block, skillCheckPosR, null, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0); base.Draw(theBatch);
+            theBatch.Draw(block, skillCheckPosL, null, Color.Red, 0, Vector2.Zero, scScaleL, SpriteEffects.None, 0); base.Draw(theBatch);
+            theBatch.Draw(block, skillCheckPosR, null, Color.Red, 0, Vector2.Zero, scScaleR, SpriteEffects.None, 0); base.Draw(theBatch);
             //Trigger
             theBatch.Draw(block, triggerPos, null, Color.Black, 0, Vector2.Zero, triggerScale, SpriteEffects.None, 0); base.Draw(theBatch);
 
+
+            bool PanelCheck = true;
+            if (PanelCheck)
+            {
+                theBatch.Draw(block, Vector2.Zero, null, Color.Brown, 0,Vector2.Zero, new Vector2(10, 3),SpriteEffects.None,0);base.Draw(theBatch);
+                theBatch.DrawString(font,"Character Pos" + playerPos, new Vector2(10, 10),Color.White);
+            } 
+            
         }
 
         public void GameConfig()
@@ -172,6 +180,7 @@ namespace OnceTwoTree
 
             #region playerPosition / Scale&Position SkillCheckBar
             //Player Position& Player Scale
+            playerScale = new Vector2(2, 2);
             playerPos = new Vector2(this.game.Window.ClientBounds.Width - 160, this.game.Window.ClientBounds.Height - 70);
             //White Bar
             barPos = new Vector2(50, this.game.Window.ClientBounds.Height - 80);

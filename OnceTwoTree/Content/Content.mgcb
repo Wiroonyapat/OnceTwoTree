@@ -73,6 +73,13 @@
 /processorParam:TextureFormat=Color
 /build:Character/player4.png
 
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
+
 #begin MapTile/Broken-wall.png
 /importer:TextureImporter
 /processor:TextureProcessor
