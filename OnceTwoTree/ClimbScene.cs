@@ -30,7 +30,7 @@ namespace OnceTwoTree
         public ClimbScene(Game1 game,EventHandler theScreenEvent):base(theScreenEvent)
         {
             this.game = game;
-            character = game.Content.Load<Texture2D>("Character\\player1");
+            character = game.Content.Load<Texture2D>("Character\\player3");
             bg = game.Content.Load<Texture2D>("UI\\background_01");
             block = game.Content.Load<Texture2D>("Character\\block");
             towerTexture = game.Content.Load<Texture2D>("Maptile\\Normal-wall-1");
@@ -173,7 +173,7 @@ namespace OnceTwoTree
             #region Key Input
             ks1 = Keyboard.GetState();
 
-            if (playerPos.Y < character.Height*playerScale.Y)
+            if (playerPos.Y < -character.Height*playerScale.Y)
             {
                 playerPos.Y = game.Window.ClientBounds.Height;
             }
