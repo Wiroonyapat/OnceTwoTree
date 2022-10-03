@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OnceTwoTree
 {
-    public class GameTest : Game
+    public class WalkScene : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -20,7 +20,7 @@ namespace OnceTwoTree
         int gravity = 10;
         int wallPredic = 5;
 
-        public GameTest()
+        public WalkScene()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
