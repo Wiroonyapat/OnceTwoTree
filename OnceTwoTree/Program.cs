@@ -7,7 +7,7 @@ namespace OnceTwoTree
         [STAThread]
         static void Main()
         {
-            using (var game = new GameTest())
+            using (var game = new WalkScene())
                 game.Run();
         }
     }
