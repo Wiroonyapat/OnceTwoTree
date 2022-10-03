@@ -12,10 +12,10 @@ namespace OnceTwoTree.HelperClass_ott
 {
     public class MyTextureInGame
     {
-        private Texture2D my_Texture;
+        internal Texture2D my_Texture;
 
-        protected Vector2 my_origin;
-        protected Vector2 my_origin_Default;
+        internal Vector2 my_origin;
+        internal Vector2 my_origin_Default;
         private Vector2 my_scale;
         private Vector2 my_scale_Default;
         private Color my_colour;
@@ -32,6 +32,9 @@ namespace OnceTwoTree.HelperClass_ott
         private double my_Animate_Interval_Per_Frame = 1.0;
         private bool my_Animate_IsLooping;
         private float Elapse_Game_Time;
+
+        private My_Position_Calculator _MyPos_MyBox;
+        private string my_Tag = "default";
 
         public enum Origin
         {
