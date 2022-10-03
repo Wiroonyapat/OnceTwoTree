@@ -20,6 +20,7 @@ namespace OnceTwoTree
         {
             if(Keyboard.GetState().IsKeyDown(Keys.X) == true)
             {
+                game.mClimbScene.GameConfig();
                 ScreenEvent.Invoke(game.mClimbScene, new EventArgs());
                 return;
             }

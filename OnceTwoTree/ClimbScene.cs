@@ -18,10 +18,10 @@ namespace OnceTwoTree
         Vector2 dropScale,barScale,triggerScale,scScaleL,scScaleR;
 
         public bool leftHand;
-
+        public bool PanelCheck = true;
         KeyboardState ks1,oldKsP1;
 
-        bool onPressedL, onPressedR;
+        bool onPressedL, onPressedR,onPressed;
         int characterSpeed,trigerSpeed,energy;
         float maxTime, totalTime;
 
@@ -45,95 +45,18 @@ namespace OnceTwoTree
                 ScreenEvent.Invoke(game.mTitleScreen, new EventArgs());
                 return;
             }
-            float time = (float)theTime.ElapsedGameTime.TotalSeconds;
-
-            totalTime += time;
-            if (totalTime > maxTime)
-            {
-                energy = energy + 1;
-                totalTime -= maxTime;
-            }
-             
-            if (energy > 100)
-            {
-                energy--;
-            }
-            else if (energy <= 0)
-            {
-                energy = 0;
-            }
-            else if (energy <= 50)
-            {
-                maxTime = 0.25f;
-            }
-            #region Key Input
-            ks1 = Keyboard.GetState();
             
-            if(playerPos.Y < -32)
-            {
-                playerPos.Y = 448;
-            }else if(playerPos.Y > 448)
-            {
-                playerPos.Y = 448;
-            }
-           
-            //P1 control
-            if (ks1.IsKeyDown(Keys.A)&& !onPressedL)
-            {
-                onPressedL = true;
-                
-                if(triggerPos.X+16 < 82 && triggerPos.X+16 > 50 && leftHand && energy > 0)
-                {
-                    leftHand = false;
-                    energy -= 2;
-                    playerPos.Y -= characterSpeed;
-                }
+            Energy((float)theTime.ElapsedGameTime.TotalSeconds);
 
-                if(triggerPos.X+16 > 98 && triggerPos.X+16 < 162)
-                {
-                    energy -= 2;
-                    playerPos.Y += characterSpeed;
-                }
-            }else if (ks1.IsKeyUp(Keys.A) && onPressedL)
-            {
-                onPressedL = false;
-            }
+            Rectangle triggerRec = new Rectangle((int)triggerPos.X,(int)triggerPos.Y,(int)(block.Width*triggerScale.X),(int)(block.Height*triggerScale.Y));
+            Rectangle barRec = new Rectangle((int)barPos.X, (int)barPos.Y, (int)(block.Width * barScale.X), (int)(block.Height * barScale.Y));
+            Rectangle dropRec = new Rectangle((int)dropPos.X, (int)dropPos.Y, (int)(block.Width * dropScale.X), (int)(block.Height * dropScale.Y));
+            Rectangle scLRec = new Rectangle((int)skillCheckPosL.X, (int)skillCheckPosL.Y, (int)(block.Width * scScaleL.X), (int)(block.Height * scScaleL.Y));
+            Rectangle scRRec = new Rectangle((int)skillCheckPosR.X, (int)skillCheckPosR.Y, (int)(block.Width * scScaleR.X), (int)(block.Height * scScaleR.Y));
 
-            if (ks1.IsKeyDown(Keys.D) && !onPressedR)
-            {
-                onPressedR = true;
-                if (triggerPos.X + 16 < 210 && triggerPos.X + 16 > 178 && !leftHand && energy > 0)
-                {
-                    leftHand = true;
-                    energy -= 2;
-                    playerPos.Y -= characterSpeed;
-                }
+            CoreGame(barRec, triggerRec);
+            KeyInput(barRec, triggerRec, dropRec, scLRec, scRRec);
 
-
-                if (triggerPos.X + 16 > 98 && triggerPos.X + 16 < 162)
-                {
-                    energy -= 2;
-                    playerPos.Y += characterSpeed;
-                }
-
-            }else if (ks1.IsKeyUp(Keys.D) && onPressedR)
-            {
-                onPressedR = false;
-            }
-           
-            
-            oldKsP1 = ks1;
-            #endregion
-
-            #region Core
-            triggerPos.X += trigerSpeed;
-            if (triggerPos.X <= 50 || triggerPos.X+16 >= 210)
-            {
-                trigerSpeed *= -1;
-            }
-
-
-            #endregion
             base.Update(theTime);
         }
 
@@ -159,13 +82,16 @@ namespace OnceTwoTree
             theBatch.Draw(block, triggerPos, null, Color.Black, 0, Vector2.Zero, triggerScale, SpriteEffects.None, 0); base.Draw(theBatch);
 
 
-            bool PanelCheck = true;
+            
             if (PanelCheck)
             {
                 theBatch.Draw(block, Vector2.Zero, null, Color.Brown, 0,Vector2.Zero, new Vector2(10, 3),SpriteEffects.None,0);base.Draw(theBatch);
-                theBatch.DrawString(font,"Character Pos" + playerPos, new Vector2(10, 10),Color.White);
-            } 
-            
+                theBatch.DrawString(font,"Character Pos " + playerPos, new Vector2(5, 5),Color.White);
+                theBatch.DrawString(font, "Left Status = " + leftHand, new Vector2(5, 22), Color.White);
+                theBatch.DrawString(font, "Stamina = " + energy, new Vector2(5, 39), Color.White);
+
+            }
+
         }
 
         public void GameConfig()
@@ -186,13 +112,13 @@ namespace OnceTwoTree
             barPos = new Vector2(50, this.game.Window.ClientBounds.Height - 80);
             barScale = new Vector2(8, 1);
             //Drop Bar
-            dropScale = new Vector2(5, 1);
+            dropScale = new Vector2(3, 1);
             dropPos = new Vector2(barPos.X + (block.Width * barScale.X / 2 - (block.Width * dropScale.X / 2)), this.game.Window.ClientBounds.Height - 80);
             //SkillCheckLeft
-            scScaleL = new Vector2(1, 1);
+            scScaleL = new Vector2(2, 1);
             skillCheckPosL = new Vector2(barPos.X, barPos.Y);
             //SkillCheckRight
-            scScaleR = new Vector2(1, 1);
+            scScaleR = new Vector2(2, 1);
             skillCheckPosR = new Vector2(barPos.X + (block.Width * barScale.X - (block.Width * scScaleR.X)), barPos.Y);
             //Trigger
             triggerScale = new Vector2(1, 1);
@@ -201,7 +127,126 @@ namespace OnceTwoTree
 
             onPressedL = false;
             onPressedR = false;
+            onPressed = false;
         }
-        
+        public void CoreGame(Rectangle barRec, Rectangle triggerRec)
+        {
+
+            triggerPos.X += trigerSpeed;
+            if (triggerRec.Intersects(barRec))
+            {
+                if (triggerRec.Left + trigerSpeed <= barRec.Left ||
+                    triggerRec.Right + trigerSpeed >= barRec.Right)
+                {
+                    trigerSpeed *= -1;
+                }
+
+            }
+
+        }
+        public void KeyInput(Rectangle barRec, Rectangle triggerRec,Rectangle dropRec ,Rectangle scLRec, Rectangle scRRec)
+        {
+            #region Key Input
+            ks1 = Keyboard.GetState();
+
+            if (playerPos.Y < character.Height*playerScale.Y)
+            {
+                playerPos.Y = game.Window.ClientBounds.Height;
+            }
+            else if (playerPos.Y > game.Window.ClientBounds.Height)
+            {
+                playerPos.Y = game.Window.ClientBounds.Height;
+            }
+
+            
+
+            if(ks1.IsKeyDown(Keys.O) && !onPressed)
+            {
+                onPressed = true;
+                if (!PanelCheck) { PanelCheck = true; }
+                else if (PanelCheck) { PanelCheck = false; }
+            }
+            else if(ks1.IsKeyUp(Keys.O)&& onPressed) { onPressed = false; }
+           
+            //P1 control
+            if (ks1.IsKeyDown(Keys.A) && !onPressedL)
+            {
+                onPressedL = true;
+                //Skill for check left hand
+                if (triggerRec.Intersects(scLRec) && leftHand && energy > 0)
+                {
+                        leftHand = false;
+                        energy -= 2;
+                        playerPos.Y -= characterSpeed;
+                }
+                //Check On Drop Block
+                if (triggerRec.Intersects(dropRec))
+                {
+                    energy -= 2;
+                    playerPos.Y += 10;
+                }
+                
+            }
+            else if (ks1.IsKeyUp(Keys.A) && onPressedL)
+            {
+                onPressedL = false;
+            }
+
+            if (ks1.IsKeyDown(Keys.D) && !onPressedR)
+            {
+                onPressedR = true;
+                //Skill for check Right hand
+                if (triggerRec.Intersects(scRRec)&& !leftHand && energy > 0)
+                {
+                    leftHand = true;
+                    energy -= 2;
+                    playerPos.Y -= characterSpeed;
+                }
+                //Check On Drop Block
+                if (triggerRec.Intersects(dropRec))
+                {
+                    energy -= 2;
+                    playerPos.Y += characterSpeed;
+                }
+
+            }
+            else if (ks1.IsKeyUp(Keys.D) && onPressedR)
+            {
+                onPressedR = false;
+            }
+
+
+            oldKsP1 = ks1;
+            #endregion
+        }
+
+        public void Energy(float time)
+        {
+            totalTime += time;
+            if (totalTime > maxTime)
+            {
+                energy = energy + 1;
+                totalTime -= maxTime;
+            }
+
+            if (energy > 100)
+            {
+                energy--;
+            }
+            else if (energy <= 0)
+            {
+                energy = 0;
+            }
+            else if (energy >= 50)
+            {
+                maxTime = 0.5f;
+            }
+            else if(energy < 50)
+            {
+                maxTime = 0.1f;
+            }
+
+        }
+
     }
 }
