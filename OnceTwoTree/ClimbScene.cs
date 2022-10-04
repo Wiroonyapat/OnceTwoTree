@@ -20,7 +20,7 @@ namespace OnceTwoTree
         List<Color> colorFeedBack = new List<Color>();
         int playerColor,scLColor,scRColor;
         public bool leftHand;
-        public bool PanelCheck = true;
+        public bool PanelCheck = false;
         KeyboardState ks1,oldKsP1;
 
         bool onPressedL, onPressedR,onPressed;
@@ -127,11 +127,11 @@ namespace OnceTwoTree
             playerScale = new Vector2(2, 2);
             playerPos = new Vector2(this.game.Window.ClientBounds.Width - 160, this.game.Window.ClientBounds.Height - 70);
             //White Bar
-            barPos = new Vector2(50, this.game.Window.ClientBounds.Height - 80);
+            barPos = new Vector2(50,80);
             barScale = new Vector2(8, 1);
             //Drop Bar
             dropScale = new Vector2(3, 1);
-            dropPos = new Vector2(barPos.X + (block.Width * barScale.X / 2 - (block.Width * dropScale.X / 2)), this.game.Window.ClientBounds.Height - 80);
+            dropPos = new Vector2(barPos.X + (block.Width * barScale.X / 2 - (block.Width * dropScale.X / 2)), barPos.Y);
             //SkillCheckLeft
             scScaleL = new Vector2(2, 1);
             skillCheckPosL = new Vector2(barPos.X, barPos.Y);
@@ -140,7 +140,7 @@ namespace OnceTwoTree
             skillCheckPosR = new Vector2(barPos.X + (block.Width * barScale.X - (block.Width * scScaleR.X)), barPos.Y);
             //Trigger
             triggerScale = new Vector2(1, 1);
-            triggerPos = new Vector2(barPos.X + (block.Width * barScale.X / 2 - (block.Width / 2)), this.game.Window.ClientBounds.Height - 80);
+            triggerPos = new Vector2(barPos.X + (block.Width * barScale.X / 2 - (block.Width / 2)), barPos.Y);
             #endregion
             #region Color Feedback
             playerColor = 0;

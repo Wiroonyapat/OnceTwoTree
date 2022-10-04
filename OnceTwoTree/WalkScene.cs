@@ -39,7 +39,7 @@ namespace OnceTwoTree
             p2Texture = game.Content.Load<Texture2D>("Character\\player2");
             tileTexture = game.Content.Load<Texture2D>("MapTile\\Ground");
             p1 = new Player("Player1", 5);
-            p2 = new Player("P2", 1);
+            p2 = new Player("P2", 5);
 
             //Spawn point
             p1.Position.X = 48;
@@ -155,8 +155,6 @@ namespace OnceTwoTree
                     theBatch.Draw(tileTexture, wallPos[i], new Rectangle(24 * 2, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
             }
-            theBatch.Draw(tileTexture, new Vector2(144, game.Window.ClientBounds.Height - 48), new Rectangle(24 * 0, 24 * 1, 24, 24), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
-
             theBatch.End();
 
         }
