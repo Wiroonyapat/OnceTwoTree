@@ -10,6 +10,12 @@ using OnceTwoTree.HelperClass_ott;
 
 namespace OnceTwoTree.HelperClass_ott
 {
+
+    public enum Origin
+    {
+        Left, Center, Right, Top, Down
+    }
+
     public class MyTextureInGame
     {
         internal Texture2D my_Texture;
@@ -36,10 +42,6 @@ namespace OnceTwoTree.HelperClass_ott
         private My_Position_Calculator _MyPos_MyBox;
         private string my_Tag = "default";
 
-        public enum Origin
-        {
-            Left, Center, Right, Top, Down
-        }
 
         /// <summary>
         /// สร้าง Object Texture รวมให้แล้ว

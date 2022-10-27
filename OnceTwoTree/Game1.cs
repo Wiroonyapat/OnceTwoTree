@@ -34,7 +34,7 @@ namespace OnceTwoTree
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _player_Tex = new MyTextureInGame(Content, "player2", Color.Wheat, MyTextureInGame.Origin.Left, MyTextureInGame.Origin.Right, Vector2.One, 0);
+            _player_Tex = new MyTextureInGame(Content, "player2", Color.Wheat, Origin.Left, Origin.Right, Vector2.One, 0);
             _player_posss = new My_Position_Calculator(_player_Tex, _player_Pos);
             
         }
