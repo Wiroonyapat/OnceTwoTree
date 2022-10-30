@@ -40,6 +40,7 @@ namespace OnceTwoTree
             colorFeedBack.Add(Color.White);
             colorFeedBack.Add(Color.Red);
             colorFeedBack.Add(Color.LightGreen);
+            colorFeedBack.Add(Color.Yellow);
 
             #endregion
             GameConfig();
@@ -90,12 +91,13 @@ namespace OnceTwoTree
             theBatch.Draw(block, barPos, null, Color.White, 0, Vector2.Zero,barScale, SpriteEffects.None, 0); base.Draw(theBatch);
             //Drop Check
             theBatch.Draw(block, dropPos, null, Color.Yellow, 0, Vector2.Zero, dropScale, SpriteEffects.None, 0); base.Draw(theBatch);
+            //Trigger
+            theBatch.Draw(block, triggerPos, null, Color.Black, 0, Vector2.Zero, triggerScale, SpriteEffects.None, 0); base.Draw(theBatch);
             //SkillcheckL
             theBatch.Draw(block, skillCheckPosL, null, colorFeedBack[scLColor], 0, Vector2.Zero, scScaleL, SpriteEffects.None, 0); base.Draw(theBatch);
             //SkillcheckR
             theBatch.Draw(block, skillCheckPosR, null, colorFeedBack[scRColor], 0, Vector2.Zero, scScaleR, SpriteEffects.None, 0); base.Draw(theBatch);
-            //Trigger
-            theBatch.Draw(block, triggerPos, null, Color.Black, 0, Vector2.Zero, triggerScale, SpriteEffects.None, 0); base.Draw(theBatch);
+            
 
 
             
@@ -164,7 +166,7 @@ namespace OnceTwoTree
                 }
 
             }
-
+            
             if (leftHand)
             {
                 scLColor = 2;
@@ -192,7 +194,8 @@ namespace OnceTwoTree
 
             
 
-            if(ks1.IsKeyDown(Keys.O) && !onPressed)
+            if(ks1.IsKeyDown(Keys.O) && !onPressed
+                )
             {
                 onPressed = true;
                 if (!PanelCheck) { PanelCheck = true; }
@@ -253,7 +256,15 @@ namespace OnceTwoTree
                 onPressedR = false;
             }
 
+            if(scLColor == 2 && triggerRec.Intersects(scLRec))
+            {
+                scLColor = 3;
+            }
 
+            if(scRColor == 2 && triggerRec.Intersects(scRRec))
+            {
+                scRColor = 3;
+            }
             oldKsP1 = ks1;
             #endregion
         }

@@ -23,8 +23,8 @@ namespace OnceTwoTree
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            graphics.PreferredBackBufferHeight = 432;
-            graphics.PreferredBackBufferWidth = 768;
+            graphics.PreferredBackBufferHeight = 972;
+            graphics.PreferredBackBufferWidth = 1728;
         }
 
         protected override void Initialize()

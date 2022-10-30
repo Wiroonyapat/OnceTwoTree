@@ -9,7 +9,10 @@ namespace OnceTwoTree
 {
     public class Player
     {
-        public Vector2 Position;
+        public Vector2 position;
+        public Vector2 scale;
+        public Vector2 size;
+        public Vector2 Hitblock;
 
         public string name;
         public int speed;
@@ -17,17 +20,19 @@ namespace OnceTwoTree
         public bool onGround = false;
         public bool onWall = false;
         public bool onClimb = false;
-        public Player(string n, bool h)
+        public Player(string name, bool leftState,int s,Vector2 size,Vector2 pos,Vector2 scale)
         {
-            name = n;
-            leftHand = h;
+            this.name = name;
+            leftHand = leftState;
+            speed = s;
+            this.size = size;
+            position = pos;
+            this.scale = scale;
+            
+
+            Hitblock = new Vector2(this.size.X * this.scale.X, this.size.Y * this.scale.Y);
         }
 
-        public Player(string n,int s)
-        {
-            speed = s;
-            name = n;
-        }
 
         public void InputControl(Keys up,Keys down,Keys left ,Keys right)
         {
@@ -39,17 +44,17 @@ namespace OnceTwoTree
             if (ks.IsKeyDown(up) && onGround )
             {
                 onGround = false;
-                this.Position.Y -= 88 * 2;
+                this.position.Y -= 88 * 2;
                 oldKS = ks;
             }
             if (ks.IsKeyDown(left))
             {
-                this.Position.X -= speed ;
+                position.X -= speed ;
                 oldKS = ks;
             }
             if (ks.IsKeyDown(right))
             {
-                this.Position.X += speed;
+                position.X += speed;
                 oldKS = ks;
             }
 
@@ -65,7 +70,7 @@ namespace OnceTwoTree
 
         public void Respawn(Vector2 vec)
         {
-            Position = vec;
+            position = vec;
         }
     }
 }

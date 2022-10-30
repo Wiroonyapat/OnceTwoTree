@@ -9,11 +9,13 @@ namespace OnceTwoTree
 {
     public class TitleScreen : Scene
     {
+        int titleFrame;
         Texture2D menuTexture;
         Game1 game;
         public TitleScreen(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
-            menuTexture = game.Content.Load<Texture2D>("UI\\StartGame");
+            titleFrame = 0;
+            menuTexture = game.Content.Load<Texture2D>("OTT Resources\\Title\\TitleScene");
             this.game = game;
         }
         public override void Update(GameTime theTime)
@@ -28,14 +30,15 @@ namespace OnceTwoTree
                 ScreenEvent.Invoke(game.mClimbScene, new EventArgs());
                 return;
             }
-
+            
+            
             base.Update(theTime);
         }
 
         public override void Draw(SpriteBatch theBatch)
         {
             theBatch.Begin();
-            theBatch.Draw(menuTexture,new Rectangle(0,0,768,432), Color.White) ; base.Draw(theBatch);
+            theBatch.Draw(menuTexture,Vector2.Zero,new Rectangle(1728*titleFrame,0,1728,972), Color.White) ; base.Draw(theBatch);
             theBatch.End();
         }
     }
